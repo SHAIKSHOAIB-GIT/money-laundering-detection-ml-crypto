@@ -1,0 +1,1 @@
+{"svm": {"accuracy": 0.8, "f1": 0.0}, "linear": {"accuracy": 0.95, "f1": 0.59}, "xgb": {"accuracy": 0.98, "f1": 0.995}}
