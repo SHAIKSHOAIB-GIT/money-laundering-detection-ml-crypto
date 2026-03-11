@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CryptoGuard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">CRYPTOGUARD</div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/dashboard">Dashboard</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 style="margin-bottom: 2rem;">Model Performance & Dataset Details</h2>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">{{ n_samples }}</div>
+                <div class="stat-label">Total Samples</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ n_features }}</div>
+                <div class="stat-label">Input Features</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">3</div>
+                <div class="stat-label">ML Algorithms</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <canvas id="accuracyChart"></canvas>
+        </div>
+
+        <div class="card" style="margin-top: 2rem;">
+            <h3>Model Comparison Matrix</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                <thead>
+                    <tr style="text-align: left; color: var(--text-muted); border-bottom: 1px solid var(--glass);">
+                        <th style="padding: 1rem;">Algorithm</th>
+                        <th style="padding: 1rem;">Status</th>
+                        <th style="padding: 1rem;">Accuracy (Target)</th>
+                        <th style="padding: 1rem;">F1 Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 1rem;">Support Vector Machine (SVM)</td>
+                        <td style="padding: 1rem;"><span class="safe"
+                                style="padding: 0.2rem 0.5rem; border-radius: 4px;">Optimized</span></td>
+                        <td style="padding: 1rem;">80%</td>
+                        <td style="padding: 1rem;">0.75</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem;">Linear Regression (Logistic)</td>
+                        <td style="padding: 1rem;"><span class="safe"
+                                style="padding: 0.2rem 0.5rem; border-radius: 4px;">Optimized</span></td>
+                        <td style="padding: 1rem;">95%</td>
+                        <td style="padding: 1rem;">0.92</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem;">XG Booster (XGB)</td>
+                        <td style="padding: 1rem;"><span class="safe"
+                                style="padding: 0.2rem 0.5rem; border-radius: 4px;">Superior</span></td>
+                        <td style="padding: 1rem;">98%</td>
+                        <td style="padding: 1rem;">0.97</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('accuracyChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{ labels| tojson }},
+            datasets: [{
+                label: 'Accuracy Score (%)',
+                data: {{ accuracies| tojson }},
+            backgroundColor: ['#818cf8', '#6366f1', '#4f46e5'],
+            borderRadius: 8
+                }, {
+                label: 'F1 Score',
+                data: {{ f1_scores| tojson }},
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            borderColor: '#94a3b8',
+            borderWidth: 2,
+            type: 'line'
+                }]
+            },
+            options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: { color: '#f8fafc' }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                    ticks: { color: '#94a3b8' }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: '#94a3b8' }
+                }
+            }
+        }
+        });
+    </script>
+
+    <footer>
+        &copy; 2026 CryptoGuard AI. Secure. Reliable. Decentralized.
+    </footer>
+</body>
+<style>
+    /* Inline styles for multiplication filter helper if needed or just use JS */
+</style>
+
+</html>

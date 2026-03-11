@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result - CryptoGuard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav>
+        <div class="logo">CRYPTOGUARD</div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/dashboard">Dashboard</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="card" style="text-align: center;">
+            <h2>Transaction Analysis Result</h2>
+
+            {% if prediction == 1 %}
+            <div class="result-badge fraud">FRAUDULENT DETECTED</div>
+            <p style="margin-top: 1rem;">Our AI models have identified high-risk patterns in this transaction.</p>
+            {% else %}
+            <div class="result-badge safe">SAFE TRANSACTION</div>
+            <p style="margin-top: 1rem;">The transaction parameters align with legitimate blockchain activity.</p>
+            {% endif %}
+
+            <div class="xai-suggestion">
+                <strong>XAI Suggestion:</strong><br>
+                {{ suggestion }}
+            </div>
+
+            <div
+                style="margin-top: 2rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; text-align: left; padding: 1rem; background: var(--glass); border-radius: 1rem;">
+                {% for key, val in inputs %}
+                <div>
+                    <span style="color: var(--text-muted); font-size: 0.8rem;">{{ key|replace('_', ' ')|capitalize
+                        }}</span><br>
+                    <strong>{{ val }}</strong>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div style="margin-top: 2.5rem;">
+                <a href="/" class="btn btn-secondary">New Analysis</a>
+                <a href="/dashboard" class="btn">View Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 CryptoGuard AI. Secure. Reliable. Decentralized.
+    </footer>
+</body>
+
+</html>

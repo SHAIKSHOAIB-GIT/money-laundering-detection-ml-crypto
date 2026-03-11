@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoGuard - Fraud Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <div class="logo">CRYPTOGUARD</div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/dashboard">Dashboard</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Advanced Crypto Fraud Detection</h1>
+            <p style="color: var(--text-muted);">Harnessing ML to secure every transaction on the blockchain.</p>
+        </div>
+
+        <div class="card">
+            <form action="/predict" method="POST">
+                <div class="grid-form">
+                    <div class="input-group">
+                        <label>Transaction Amount (USD)</label>
+                        <input type="number" step="0.01" name="amount" placeholder="e.g. 1500.50" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Gas Price (Gwei)</label>
+                        <input type="number" step="0.1" name="gas_price" placeholder="e.g. 25.4" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Time Since Last TX (Mins)</label>
+                        <input type="number" name="time_diff" placeholder="e.g. 120" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Sender Total History</label>
+                        <input type="number" name="sender_ops" placeholder="e.g. 45" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Receiver Total History</label>
+                        <input type="number" name="receiver_ops" placeholder="e.g. 12" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Wallet Age (Days)</label>
+                        <input type="number" name="wallet_age" placeholder="e.g. 365" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Network Congestion (0-1)</label>
+                        <input type="number" step="0.01" name="network_congestion" placeholder="e.g. 0.65" required>
+                    </div>
+                    <div class="input-group">
+                        <label>IP Reputation (0-1)</label>
+                        <input type="number" step="0.01" name="ip_reputation" placeholder="e.g. 0.98" required>
+                    </div>
+                </div>
+                <div style="margin-top: 2rem; text-align: center;">
+                    <button type="submit" class="btn">Analyze Transaction</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 CryptoGuard AI. Secure. Reliable. Decentralized.
+    </footer>
+</body>
+</html>
